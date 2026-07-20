@@ -41,6 +41,9 @@ class ClientController extends BaseController
             return redirect()->to('/client/historique')->with('error', 'Échec du traitement du dépôt.');
         } catch (\InvalidArgumentException $e) {
             return redirect()->to('/client/historique')->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+            log_message('error', 'Erreur dépôt: ' . $e->getMessage());
+            return redirect()->to('/client/historique')->with('error', 'Échec du dépôt : ' . $e->getMessage());
         }
     }
 
@@ -61,6 +64,9 @@ class ClientController extends BaseController
             return redirect()->to('/client/historique')->with('error', 'Échec du traitement du retrait.');
         } catch (\InvalidArgumentException $e) {
             return redirect()->to('/client/historique')->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+            log_message('error', 'Erreur retrait: ' . $e->getMessage());
+            return redirect()->to('/client/historique')->with('error', 'Échec du retrait : ' . $e->getMessage());
         }
     }
 
@@ -72,16 +78,50 @@ class ClientController extends BaseController
         if ($redirect = $this->checkAuth()) return $redirect;
 
         $clientIdSource = (int) session()->get('client_id');
-        $telephoneDest  = (string) $this->request->getPost('destinataire');
+        $telephoneDest  = $this->request->getPost('destinataire'); // Ce sera un tableau PHP
         $montant        = (float) $this->request->getPost('montant');
 
-        try {
-            if ($this->clientModel->transfert($clientIdSource, $telephoneDest, $montant)) {
-                return redirect()->to('/client/historique')->with('success', "Transfert de " . number_format($montant, 2) . " Ar vers le {$telephoneDest} effectué avec succès.");
+        // S'assurer que c'est bien un tableau
+        if (!is_array($telephoneDest)) {
+            $telephoneDest = preg_split('/[\s,;]+/', (string)$telephoneDest, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        // Nettoyer les entrées
+        $telephonesDestClean = [];
+        foreach ($telephoneDest as $tel) {
+            $cleaned = trim((string)$tel);
+            if ($cleaned !== '') {
+                $telephonesDestClean[] = $cleaned;
             }
-            return redirect()->to('/client/historique')->with('error', 'Échec du traitement du transfert.');
+        }
+        $telephonesDestClean = array_unique($telephonesDestClean);
+
+        try {
+            $nbDest = count($telephonesDestClean);
+
+            if ($nbDest === 1) {
+                // Transfert simple : supporte les destinataires d'un autre opérateur
+                $dest = reset($telephonesDestClean);
+                if ($this->clientModel->transfert($clientIdSource, $dest, $montant)) {
+                    $label = "Transfert de " . number_format($montant, 2) . " Ar vers {$dest} effectué avec succès (frais calculés automatiquement selon l'opérateur).";
+                    return redirect()->to('/client/historique')->with('success', $label);
+                }
+                return redirect()->to('/client/historique')->with('error', 'Échec du traitement du transfert.');
+            } else {
+                // Transfert multiple : même opérateur uniquement
+                if ($this->clientModel->transfertMultiple($clientIdSource, $telephonesDestClean, $montant)) {
+                    $montantIndiv = $montant / $nbDest;
+                    $destList     = implode(', ', $telephonesDestClean);
+                    $label = "Transfert multiple de " . number_format($montant, 2) . " Ar divisé vers {$nbDest} destinataires (" . number_format($montantIndiv, 2) . " Ar chacun à {$destList}).";
+                    return redirect()->to('/client/historique')->with('success', $label);
+                }
+                return redirect()->to('/client/historique')->with('error', 'Échec du traitement du transfert.');
+            }
         } catch (\InvalidArgumentException $e) {
             return redirect()->to('/client/historique')->with('error', $e->getMessage());
+        } catch (\Exception $e) {
+            log_message('error', 'Erreur transfert: ' . $e->getMessage());
+            return redirect()->to('/client/historique')->with('error', 'Échec du transfert : ' . $e->getMessage());
         }
     }
 
