@@ -1,2 +1,7 @@
-*.log
-*.db
+# Exclure les logs de CodeIgniter
+writable/logs/*
+!writable/logs/index.html
+
+# Exclure les fichiers de session
+writable/session/*
+!writable/session/index.html
