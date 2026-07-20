@@ -2,7 +2,34 @@ v1 :
     .ETU004173 : 
         -Initialisation Github - 1mn (ok)
         -Initialisation Code-Igniter Squelette - 1mn (ok)
-        -Conception base de donnee
+        -Conception base de donnee :
+            -- Tables :
+               1. prefixes : gestion des prefixes telephoniques
+               2. types_operation : types d'operations (depôt, retrait, transfert)
+               3. baremes_frais : calcul des frais selon le montant et l'operation
+               4. statut : statut des clients
+               5. statut_transaction : statut des transactions
+               6. clients : informations des clients et solde
+               7. transactions : historique des operations effectuees
+        -Cote operateur : 
+            --Modele : 
+                1. \Operateur\Model\PrefixeModel.php 
+                2. \Operateur\Model\BaremeFraisModel.php
+                3. \Operateur\Model\TypeOperationModel.php
+            --Controller : 
+                1.Creation du controller \Operateur\Controller\PrefixeController.php(Crud-prefixe)
+                2.Creation du controller \Operateur\Controller\TypeOperationController.php(Crud-type)
+                3.Creation du controller \Operateur\Controller\BaremeFraisController.php(Crud-bareme par tranche modifiable )
+
+            --View : 
+                1. Liste des prefixes dans Views\operator\prefixes.php
+                2. Bouton ajouter/modifier/supprimer Prefixes 
+                3. Creation des types d'operations
+                4. Liste des tranches avec frais + bouton modifier et supprimer dans Views\operator\gestion_baremes.php
+                5
+
+
+
         
 # ETU003950 : 
 ## Connexion base avec SQLite 
@@ -31,4 +58,3 @@ v1 :
            - bouton valider
 
 
-            
