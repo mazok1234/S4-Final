@@ -18,13 +18,15 @@ v1 :
                 3. \Operateur\Model\TypeOperationModel.php
             --Controller : 
                 1.Creation du controller \Operateur\Controller\PrefixeController.php(Crud-prefixe)
-                2.Creation du controller \Operateur\Controller\BaremeFraisController.php(Crud-bareme par tranche modifiable )
-                3.Creation du controller \Operateur\Controller\TypeOperationController.php(Crud-type)
+                2.Creation du controller \Operateur\Controller\TypeOperationController.php(Crud-type)
+                3.Creation du controller \Operateur\Controller\BaremeFraisController.php(Crud-bareme par tranche modifiable )
+
             --View : 
                 1. Liste des prefixes dans Views\operator\prefixes.php
                 2. Bouton ajouter/modifier/supprimer Prefixes 
                 3. Creation des types d'operations
-                4. Liste des tranches avec frais 
+                4. Liste des tranches avec frais + bouton modifier et supprimer dans Views\operator\gestion_baremes.php
+                5
 
 
 

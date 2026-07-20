@@ -6,7 +6,10 @@
 </head>
 <body>
 
-    <h2>Gestion des Baremes de Frais</h2>
+    <div>
+        <h2>Gestion des Baremes de Frais</h2>
+        <a href="<?= site_url('operator/types_operation') ?>">Gerer les types d operation</a>
+    </div>
     <hr>
 
     <!-- Notifications -->
