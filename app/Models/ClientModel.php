@@ -278,10 +278,22 @@ class ClientModel extends Model
     /**
      * Récupère la liste des transactions via Query Builder
      */
+/**
+     * Récupère la liste des transactions d'un client
+     * Sépare visuellement les transferts en "Transfert envoyé" et "Transfert reçu"
+     */
     public function getTransactions(int $clientId): array
     {
         return $this->db->table('transactions t')
-            ->select('t.*, top.nom as operation, st.code as statut')
+            ->select("
+                t.*, 
+                st.code as statut,
+                CASE 
+                    WHEN t.id_type_operation = 3 AND t.id_client_source = {$clientId} THEN 'Transfert envoyé'
+                    WHEN t.id_type_operation = 3 AND t.id_client_destination = {$clientId} THEN 'Transfert reçu'
+                    ELSE top.nom 
+                END as operation
+            ")
             ->join('types_operation top', 'top.id = t.id_type_operation')
             ->join('statut_transaction st', 'st.id = t.id_statut')
             ->groupStart()
