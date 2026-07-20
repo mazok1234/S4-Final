@@ -11,6 +11,8 @@ v1 :
   - configurer Database.php dans app/Config
 
 ## Fonctionnalite Login(Cote client)
+- Route
+  - config des routes 
 - Model
     - ClientModel
         - acces aux informations
@@ -27,4 +29,6 @@ v1 :
         - Formulaire login
            - champ telephone
            - bouton valider
+
+
             
