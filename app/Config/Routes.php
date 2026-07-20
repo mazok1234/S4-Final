@@ -10,7 +10,7 @@ use App\Controllers\ClientController;
 // Redirection de la page d'accueil vers /login
 $routes->addRedirect('/', 'login');
 
-$routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
+$routes->group('operator', ['namespace' => 'App\Controllers\Operateur'], static function ($routes) {
 
     $routes->get('dashboard', 'OperateurController::dashboard');
 
@@ -20,6 +20,8 @@ $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static 
         $routes->get('edit/(:num)', 'OperateurController::edit/$1');
         $routes->post('update/(:num)', 'OperateurController::update/$1');
         $routes->get('delete/(:num)', 'OperateurController::delete/$1');
+        $routes->post('store_autre', 'OperateurController::store_autre'); // Nouvelle route
+      $routes->get('delete_autre/(:num)', 'OperateurController::delete_autre/$1'); // Nouvelle route
     });
 
     $routes->get('gestion_baremes', 'BaremeController::index');

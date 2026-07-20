@@ -108,3 +108,45 @@ v1 :
     - fonction retrait
        - prendre les parametres et executer la fonction dans le model
        - rediriger vers vue historique
+
+## Fonctionnalite operateur v2
+### Autres operateurs
+- table prefixe_autre pour les prefixes des autres operateurs
+- Model
+    - PrefixeAutreModel
+- Controller
+    - fonction ajouter_autre_operateur(prefixe)
+        - verifier doublon
+- Vue   
+    - ajouter formulaire ajout operateur
+        - libelle prefixe
+        - nom operateur
+        - bouton valider
+### % Commission 
+- table commission(id_operateur,pourcentage,date)
+- table historique_transfert_etranger
+``
+CREATE TABLE historique_transfert_etranger (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference TEXT NOT NULL UNIQUE, -- Ex: TXN-20260720-A1B2C3
+    id_client_source INTEGER NOT NULL,
+    id_operateur INTEGER,
+    numero_destinataire TEXT NOT NULL,
+    montant REAL NOT NULL CHECK (montant > 0),
+    date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,    
+);
+``
+- Model 
+    - CommissionModel
+- ClientController
+    - modifier fonction transfert
+        - isoler le cas autres operateurs
+            - faire comme pour tout transfert avec destinataire NULL
+            - inserer dans la table historique_transfert_etranger avec numero_destinataire = numero_destinataire
+## Montant a payer aux operateurs
+- Vue
+    - liste des operateurs avec montant a leur envoyer
+- Controller
+    - lien de donnee
+- HistoriqueTransfertEtrangerModel
+    - somme a envoyer pour chaque operateur
