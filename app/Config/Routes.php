@@ -2,12 +2,12 @@
 
 use CodeIgniter\Router\RouteCollection;
 use App\Controllers\AuthController;
-
+use App\Controllers\ClientController;
 /**
  * @var RouteCollection $routes
  */
 
-$routes->view('login', 'Home::index');
+// $routes->view('login', 'Home::index');
 
 $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
     
@@ -40,3 +40,11 @@ $routes->view('login', 'front_office/login');
 
 $routes->post('/auth/login', [AuthController::class, 'login']);
 $routes->get('/client/test', [AuthController::class, 'dashboard']);
+
+// Affichage des formulaires et de l'historique
+$routes->get('client/historique', [ClientController::class, 'historique']);
+
+// Traitement des opérations financières
+$routes->post('depot', [ClientController::class, 'depot']);
+$routes->post('transfert', [ClientController::class, 'transfert']);
+$routes->post('retrait', [ClientController::class, 'retrait']);

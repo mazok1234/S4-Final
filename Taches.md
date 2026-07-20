@@ -59,4 +59,52 @@ v1 :
            - champ telephone
            - bouton valider
 
-
+## Fonctionnalite client
+### Depot
+- Route
+    -/depot Post
+- Vue
+    - Formulaire de depot
+        - montant 
+        - bouton valider
+        - message reussite
+        - message echoue
+- ClientModel
+    - getSolde
+    -  fonction depot
+    - fonction calculer solde
+- ClientController
+    - fonction depot
+       - prendre les parametres et executer la fonction dans le model
+       - rediriger vers vue historique
+### Transfert
+- Route
+    -/transfert Post
+- Vue
+    - Formulaire de transfert
+        - montant 
+        - destinataire
+        - bouton valider
+        - message reussite
+        - message echoue
+- ClientModel
+    -  fonction transfert(verifier solde)
+- ClientController
+    - fonction transfert
+       - prendre les parametres et executer la fonction dans le model
+       - rediriger vers vue historique
+### Retrait
+- Route
+    -/retrait Post
+- Vue
+    - Formulaire de retrait
+        - montant 
+        - bouton valider
+        - message reussite
+        - message echoue
+- ClientModel
+    -  fonction retrait(verfifier solde)
+- ClientController
+    - fonction retrait
+       - prendre les parametres et executer la fonction dans le model
+       - rediriger vers vue historique
