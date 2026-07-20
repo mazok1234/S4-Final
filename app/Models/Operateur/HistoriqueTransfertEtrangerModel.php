@@ -35,6 +35,7 @@ class HistoriqueTransfertEtrangerModel extends Model
                 pa.prefixe,
                 COALESCE(SUM(hte.montant), 0) as total_brut,
                 COALESCE(comm.pourcentage, 0) as pourcentage_commission,
+                COALESCE(SUM(hte.montant) * (COALESCE(comm.pourcentage, 0) / 100.0), 0) as montant_commission,
                 COALESCE(SUM(hte.montant) * (1 - (COALESCE(comm.pourcentage, 0) / 100.0)), 0) as montant_a_envoyer
             ")
             ->join('historique_transfert_etranger hte', 'hte.id_operateur = pa.id', 'left')

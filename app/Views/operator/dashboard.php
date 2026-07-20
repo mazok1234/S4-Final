@@ -42,6 +42,8 @@
             <thead>
                 <tr style="background-color: #f3f4f6;">
                     <th>Type d'Operation</th>
+                    <th>Operateur principal</th>
+                    <th>Autres operateurs</th>
                     <th>Total des Gains (Frais percus)</th>
                 </tr>
             </thead>
@@ -50,16 +52,20 @@
                     <?php foreach ($gains_par_type as $g): ?>
                         <tr>
                             <td><strong><?= ucfirst($g['type_nom']) ?></strong></td>
+                            <td><?= number_format($g['total_operateur'], 2, ',', ' ') ?> Ar</td>
+                            <td><?= number_format($g['total_autres_operateurs'], 2, ',', ' ') ?> Ar</td>
                             <td><?= number_format($g['total_frais'], 2, ',', ' ') ?> Ar</td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="2" align="center">Aucun gain enregistre.</td>
+                        <td colspan="4" align="center">Aucun gain enregistre.</td>
                     </tr>
                 <?php endif; ?>
                 <tr style="background-color: #e5e7eb; font-weight: bold;">
                     <td>TOTAL GLOBAL DES GAINS</td>
+                    <td><?= number_format($total_gains_operateur ?? 0, 2, ',', ' ') ?> Ar</td>
+                    <td><?= number_format($total_gains_autres_operateurs ?? 0, 2, ',', ' ') ?> Ar</td>
                     <td><?= number_format($total_gains, 2, ',', ' ') ?> Ar</td>
                 </tr>
             </tbody>
@@ -121,6 +127,7 @@
                     <th>Prefixe</th>
                     <th>Total Brut Transféré</th>
                     <th>Commission (%)</th>
+                    <th>Commission Retenue</th>
                     <th>Montant Net a Envoyer</th>
                 </tr>
             </thead>
@@ -132,6 +139,7 @@
                             <td><?= esc($op['prefixe']) ?></td>
                             <td><?= number_format($op['total_brut'], 2, ',', ' ') ?> Ar</td>
                             <td><?= number_format($op['pourcentage_commission'], 2, ',', ' ') ?> %</td>
+                            <td><?= number_format($op['montant_commission'], 2, ',', ' ') ?> Ar</td>
                             <td style="color: #15803d; font-weight: bold;">
                                 <?= number_format($op['montant_a_envoyer'], 2, ',', ' ') ?> Ar
                             </td>
@@ -139,7 +147,7 @@
                     <?php endforeach; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="5" align="center">Aucun autre opérateur configuré ou aucun transfert effectué.</td>
+                        <td colspan="6" align="center">Aucun autre opérateur configuré ou aucun transfert effectué.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>

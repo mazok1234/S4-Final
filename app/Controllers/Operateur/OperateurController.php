@@ -79,17 +79,21 @@ class OperateurController extends BaseController
     {
         $db = \Config\Database::connect();
         $data['gains_par_type'] = $db->table('types_operation')
-                                    ->select('types_operation.id, types_operation.nom as type_nom, COALESCE(SUM(transactions.frais_appliques), 0.0) as total_frais')
+                                    ->select("
+                                        types_operation.id,
+                                        types_operation.nom as type_nom,
+                                        COALESCE(SUM(CASE WHEN historique_transfert_etranger.id IS NULL THEN transactions.frais_appliques ELSE 0 END), 0.0) as total_operateur,
+                                        COALESCE(SUM(CASE WHEN historique_transfert_etranger.id IS NOT NULL THEN transactions.frais_appliques ELSE 0 END), 0.0) as total_autres_operateurs,
+                                        COALESCE(SUM(transactions.frais_appliques), 0.0) as total_frais
+                                    ")
                                     ->join('transactions', 'transactions.id_type_operation = types_operation.id AND transactions.id_statut = 2', 'left')
+                                    ->join('historique_transfert_etranger', 'historique_transfert_etranger.reference = transactions.reference', 'left')
                                     ->groupBy('types_operation.id')
                                     ->get()
                                     ->getResultArray();
-        $gains = $db->table('transactions')
-                    ->selectSum('frais_appliques')
-                    ->where('id_statut', 2)
-                    ->get()
-                    ->getRowArray();
-        $data['total_gains'] = $gains['frais_appliques'] ?? 0.0;
+        $data['total_gains_operateur'] = array_sum(array_column($data['gains_par_type'], 'total_operateur'));
+        $data['total_gains_autres_operateurs'] = array_sum(array_column($data['gains_par_type'], 'total_autres_operateurs'));
+        $data['total_gains'] = array_sum(array_column($data['gains_par_type'], 'total_frais'));
 
         $clientModel = new \App\Models\ClientModel();
         $data['clients'] = $clientModel->getClientsWithBalances();
