@@ -20,7 +20,24 @@ CREATE TABLE baremes_frais (
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     telephone TEXT NOT NULL UNIQUE,
-    solde REAL DEFAULT 0.0
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE statut(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    libelle TEXT NOT NULL
+);
+CREATE TABLE statut_client(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_statut INTEGER NOT NULL,
+    id_client INTEGER NOT NULL,
+    date_modification DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(id_statut) REFERENCES statut(id),
+    FOREIGN KEY(id_client) REFERENCES clients(id)
+);
+
+CREATE TABLE statut_transaction (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL UNIQUE 
 );
 
 CREATE TABLE transactions (

@@ -23,5 +23,31 @@ v1 :
                 2. Bouton ajouter/modifier/supprimer Prefixes 
 
 
-    .ETU003950 : 
-        -Connexion base avec SQLite 
+        
+# ETU003950 : 
+## Connexion base avec SQLite 
+  - creation du fichier sqlite3 .db
+  - mettre dans writable/db
+  - configurer Database.php dans app/Config
+
+## Fonctionnalite Login(Cote client)
+- Route
+  - config des routes 
+- Model
+    - ClientModel
+        - acces aux informations
+- Controller
+    - AuthController
+        - Creation du compte si n'existe pas
+        - Connexion si compte existe
+        - Mise en place de session
+        - Redirection vers la page fonctionnelle
+    - ClientController
+
+- Vue
+    - Page login
+        - Formulaire login
+           - champ telephone
+           - bouton valider
+
+
