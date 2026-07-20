@@ -1,12 +1,13 @@
 <?php
 
 use CodeIgniter\Router\RouteCollection;
+use App\Controllers\AuthController;
 
 /**
  * @var RouteCollection $routes
  */
 
-$routes->get('/', 'Home::index');
+$routes->view('login', 'Home::index');
 
 $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
     
@@ -32,3 +33,9 @@ $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static 
     $routes->post('types_operation/update/(:num)', 'TypeOperationController::update/$1');
     $routes->get('types_operation/delete/(:num)', 'TypeOperationController::delete/$1');
 });
+$routes->post('/auth/login', [AuthController::class, 'login']);
+$routes->get('/client/test', [AuthController::class, 'dashboard']);
+$routes->view('login', 'front_office/login');
+
+$routes->post('/auth/login', [AuthController::class, 'login']);
+$routes->get('/client/test', [AuthController::class, 'dashboard']);

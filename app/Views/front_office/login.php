@@ -52,13 +52,12 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Notifications / Alerts */
+        /* Notifications Flash Session */
         .alert {
             padding: 0.75rem 1rem;
             border-radius: 6px;
             font-size: 0.875rem;
             margin-bottom: 1.25rem;
-            display: none; /* À passer en display:block si un message est présent */
         }
 
         .alert-danger {
@@ -124,12 +123,23 @@
         <h2>Connexion</h2>
         <p class="subtitle">Entrez votre numéro pour vous connecter ou créer un compte</p>
 
-        <!-- Exemple d'affichage dynamique d'erreur (à conditionner côté serveur) -->
-        <!-- <div class="alert alert-danger" style="display: block;">
-            Numéro de téléphone invalide.
-        </div> -->
+        <!-- Affichage du message d'erreur si présent en session -->
+        <?php if (session()->getFlashdata('error')) : ?>
+            <div class="alert alert-danger">
+                <?= esc(session()->getFlashdata('error')) ?>
+            </div>
+        <?php endif; ?>
 
-        <form action="/auth/login" method="POST">
+        <!-- Affichage du message de succès si présent en session (ex: déconnexion) -->
+        <?php if (session()->getFlashdata('success')) : ?>
+            <div class="alert alert-success">
+                <?= esc(session()->getFlashdata('success')) ?>
+            </div>
+        <?php endif; ?>
+
+        <form action="<?= base_url('auth/login') ?>" method="POST">
+            <?= csrf_field() ?> <!-- Protection CSRF obligatoire dans CI4 -->
+
             <div class="form-group">
                 <label for="telephone">Numéro de téléphone</label>
                 <input 
@@ -137,7 +147,8 @@
                     id="telephone" 
                     name="telephone" 
                     placeholder="034 12 345 67" 
-                    required>
+                    required
+                >
             </div>
 
             <button type="submit" class="btn-submit">Valider</button>
