@@ -1,0 +1,261 @@
+CRITICAL - 2026-07-20 06:57:33 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:57:37 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:57:37 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:57:37 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:57:38 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:58:33 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:58:34 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:58:34 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:58:34 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 06:58:34 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:09:22 --> Error: Class "App\Models\Operator\PrefixeModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Operateur\OperateurController.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->index()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:09:23 --> Error: Class "App\Models\Operator\PrefixeModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Operateur\OperateurController.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->index()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:09:23 --> Error: Class "App\Models\Operator\PrefixeModel" not found
+[Method: GET, Route: /]
+in APPPATH\Controllers\Operateur\OperateurController.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->index()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:13:23 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:13:23 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:13:23 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: GET, Route: /]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\CodeIgniter.php(829): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\CodeIgniter.php(441): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+ 5 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 6 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 7 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 8 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 9 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:13:54 --> CodeIgniter\Router\Exceptions\RouterException: The namespace delimiter is a backslash (\), not a slash (/). Route handler: "\App\Controllers\front_office/login"
+[Method: CLI, Route: routes]
+in SYSTEMPATH\Router\Router.php on line 523.
+ 1 SYSTEMPATH\Router\Router.php(523): CodeIgniter\Router\Exceptions\RouterException::forInvalidControllerName('\\App\\Controllers\\front_office/login')
+ 2 SYSTEMPATH\Router\Router.php(225): CodeIgniter\Router\Router->checkRoutes('/')
+ 3 SYSTEMPATH\Commands\Utilities\Routes\FilterFinder.php(41): CodeIgniter\Router\Router->handle('/')
+ 4 SYSTEMPATH\Commands\Utilities\Routes\FilterFinder.php(57): CodeIgniter\Commands\Utilities\Routes\FilterFinder->getRouteFilters('/')
+ 5 SYSTEMPATH\Commands\Utilities\Routes\FilterCollector.php(78): CodeIgniter\Commands\Utilities\Routes\FilterFinder->find('/')
+ 6 SYSTEMPATH\Commands\Utilities\Routes.php(110): CodeIgniter\Commands\Utilities\Routes\FilterCollector->get('GET', '/')
+ 7 SYSTEMPATH\CLI\Commands.php(74): CodeIgniter\Commands\Utilities\Routes->run([])
+ 8 SYSTEMPATH\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('routes', [])
+ 9 SYSTEMPATH\Boot.php(442): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH\Boot.php(166): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+11 ROOTPATH\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+CRITICAL - 2026-07-20 07:17:09 --> Error: Class "App\Models\Operator\PrefixeModel" not found
+[Method: GET, Route: operator/prefixes]
+in APPPATH\Controllers\Operateur\OperateurController.php on line 13.
+ 1 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->index()
+ 2 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 3 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 4 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 5 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 6 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ 7 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:19:00 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "operator/dashboard.php"
+[Method: GET, Route: operator/dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('operator/dashboard.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operator/dashboard', [], true)
+ 3 APPPATH\Controllers\Operateur\OperateurController.php(84): view('operator/dashboard', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+CRITICAL - 2026-07-20 07:19:03 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "operator/dashboard.php"
+[Method: GET, Route: operator/dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('operator/dashboard.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operator/dashboard', [], true)
+ 3 APPPATH\Controllers\Operateur\OperateurController.php(84): view('operator/dashboard', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+DEBUG - 2026-07-20 07:19:52 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-07-20 07:20:01 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "operator/dashboard.php"
+[Method: GET, Route: operator/dashboard]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('operator/dashboard.php')
+ 2 SYSTEMPATH\Common.php(1250): CodeIgniter\View\View->render('operator/dashboard', [], true)
+ 3 APPPATH\Controllers\Operateur\OperateurController.php(84): view('operator/dashboard', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(951): App\Controllers\operateur\OperateurController->dashboard()
+ 5 SYSTEMPATH\CodeIgniter.php(497): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\operateur\OperateurController))
+ 6 SYSTEMPATH\CodeIgniter.php(340): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(59): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('D:\\Systeme-d\'Info\\S4-Final\\public\\index.php')
+DEBUG - 2026-07-20 07:20:17 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:20:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:20:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:20:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:20:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:22:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:22:32 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:22:34 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:22:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:23:13 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-07-20 07:23:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

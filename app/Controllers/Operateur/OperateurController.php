@@ -3,8 +3,8 @@
 namespace App\Controllers\operateur;
 
 use App\Controllers\BaseController;
-use App\Models\Operator\PrefixeModel;
-use App\Models\Operator\BaremeFraisModel;
+use App\Models\Operateur\PrefixeModel;
+use App\Models\Operateur\BaremeFraisModel;
 
 class OperateurController extends BaseController
 {
@@ -23,12 +23,12 @@ class OperateurController extends BaseController
         if (!empty($prefixe) && strlen($prefixe) === 3 && is_numeric($prefixe)) {
             try {
                 $prefixModel->insert(['prefixe' => $prefixe]);
-                return redirect()->to('/operator/prefixes')->with('success', 'Prefixe ajoute.');
+                return redirect()->to(site_url('operator/prefixes'))->with('success', 'Prefixe ajoute.');
             } catch (\Exception $e) {
-                return redirect()->to('/operator/prefixes')->with('error', 'Ce prefixe existe deja.');
+                return redirect()->to(site_url('operator/prefixes'))->with('error', 'Ce prefixe existe deja.');
             }
         }
-        return redirect()->to('/operator/prefixes')->with('error', 'Le prefixe doit contenir 3 chiffres.');
+        return redirect()->to(site_url('operator/prefixes'))->with('error', 'Le prefixe doit contenir 3 chiffres.');
     }
 
     public function edit($id)
@@ -37,7 +37,7 @@ class OperateurController extends BaseController
         $data['prefixe'] = $prefixModel->find($id);
 
         if (!$data['prefixe']) {
-            return redirect()->to('/operator/prefixes')->with('error', 'Prefixe introuvable.');
+            return redirect()->to(site_url('operator/prefixes'))->with('error', 'Prefixe introuvable.');
         }
 
         return view('operator/edit_prefixe', $data);
@@ -51,19 +51,19 @@ class OperateurController extends BaseController
         if (!empty($prefixe) && strlen($prefixe) === 3 && is_numeric($prefixe)) {
             try {
                 $prefixModel->update($id, ['prefixe' => $prefixe]);
-                return redirect()->to('/operator/prefixes')->with('success', 'Prefixe modifie.');
+                return redirect()->to(site_url('operator/prefixes'))->with('success', 'Prefixe modifie.');
             } catch (\Exception $e) {
-                return redirect()->to('/operator/prefixes')->with('error', 'Ce prefixe existe deja.');
+                return redirect()->to(site_url('operator/prefixes'))->with('error', 'Ce prefixe existe deja.');
             }
         }
-        return redirect()->to('/operator/prefixes/edit/' . $id)->with('error', 'Le prefixe doit contenir 3 chiffres.');
+        return redirect()->to(site_url('operator/prefixes/edit/' . $id))->with('error', 'Le prefixe doit contenir 3 chiffres.');
     }
 
     public function delete($id)
     {
         $prefixModel = new PrefixeModel();
         $prefixModel->delete($id);
-        return redirect()->to('/operator/prefixes')->with('success', 'Prefixe supprime.');
+        return redirect()->to(site_url('operator/prefixes'))->with('success', 'Prefixe supprime.');
     }
 
     public function dashboard()
@@ -92,9 +92,9 @@ class OperateurController extends BaseController
 
         if ($id && is_numeric($frais) && $frais >= 0) {
             $baremeModel->update($id, ['frais' => $frais]);
-            return redirect()->to('/operator/dashboard')->with('success', 'Frais mis a jour.');
+            return redirect()->to(site_url('operator/dashboard'))->with('success', 'Frais mis a jour.');
         }
 
-        return redirect()->to('/operator/dashboard')->with('error', 'Donnees invalides.');
+        return redirect()->to(site_url('operator/dashboard'))->with('error', 'Donnees invalides.');
     }
 }
