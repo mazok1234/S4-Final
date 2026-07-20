@@ -72,12 +72,36 @@ class ClientController extends BaseController
         if ($redirect = $this->checkAuth()) return $redirect;
 
         $clientIdSource = (int) session()->get('client_id');
-        $telephoneDest  = (string) $this->request->getPost('destinataire');
+        $telephoneDest  = $this->request->getPost('destinataire'); // Ce sera un tableau PHP
         $montant        = (float) $this->request->getPost('montant');
 
+        // S'assurer que c'est bien un tableau
+        if (!is_array($telephoneDest)) {
+            $telephoneDest = preg_split('/[\s,;]+/', (string)$telephoneDest, -1, PREG_SPLIT_NO_EMPTY);
+        }
+
+        // Nettoyer les entrées
+        $telephonesDestClean = [];
+        foreach ($telephoneDest as $tel) {
+            $cleaned = trim((string)$tel);
+            if ($cleaned !== '') {
+                $telephonesDestClean[] = $cleaned;
+            }
+        }
+        $telephonesDestClean = array_unique($telephonesDestClean);
+
         try {
-            if ($this->clientModel->transfert($clientIdSource, $telephoneDest, $montant)) {
-                return redirect()->to('/client/historique')->with('success', "Transfert de " . number_format($montant, 2) . " Ar vers le {$telephoneDest} effectué avec succès.");
+            if ($this->clientModel->transfertMultiple($clientIdSource, $telephonesDestClean, $montant)) {
+                $nbDest = count($telephonesDestClean);
+                if ($nbDest === 1) {
+                    $dest  = reset($telephonesDestClean);
+                    $label = "Transfert de " . number_format($montant, 2) . " Ar vers {$dest} effectué avec succès (frais calculés automatiquement selon l'opérateur).";
+                } else {
+                    $montantIndiv = $montant / $nbDest;
+                    $destList     = implode(', ', $telephonesDestClean);
+                    $label = "Transfert multiple de " . number_format($montant, 2) . " Ar divisé vers {$nbDest} destinataires (" . number_format($montantIndiv, 2) . " Ar chacun à {$destList}).";
+                }
+                return redirect()->to('/client/historique')->with('success', $label);
             }
             return redirect()->to('/client/historique')->with('error', 'Échec du traitement du transfert.');
         } catch (\InvalidArgumentException $e) {

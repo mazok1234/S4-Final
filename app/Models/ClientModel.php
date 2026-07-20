@@ -85,7 +85,7 @@ class ClientModel extends Model
      */
     private function generateReference(): string
     {
-        return 'TXN-' . date('Ymd') . '-' . strtoupper(substr(uniqid(), -6));
+        return 'TXN-' . date('Ymd') . '-' . strtoupper(substr(md5(uniqid(mt_rand(), true)), -6));
     }
 
     /**
@@ -155,9 +155,7 @@ class ClientModel extends Model
         return true;
     }
 
-    /**
-     * Opération de Transfert (id_type_operation = 3)
-     */
+
     public function transfert(int $clientIdSource, string $telephoneDest, float $montant): bool
     {
         if ($montant <= 0) {
@@ -169,11 +167,41 @@ class ClientModel extends Model
         $prefixeAutreModel = new \App\Models\Operateur\PrefixeAutreModel();
         $autreOperateur    = $prefixeAutreModel->getOperateurParNumero($telephoneDest);
 
-        $frais = $this->getFrais(3, $montant);
-        $totalAboed = $montant + $frais;
+        // Détermination automatique de l'opérateur
+        $expediteur = $this->find($clientIdSource);
+        $prefixeModel = new \App\Models\Operateur\PrefixeModel();
+        $prefixes = array_column($prefixeModel->findAll(), 'prefixe');
 
-        if ($this->getSolde($clientIdSource) < $totalAboed) {
-            throw new \InvalidArgumentException("Solde insuffisant pour ce transfert (Frais applicables : {$frais} Ar).");
+        $getPrefix = function(string $telephone) use ($prefixes) {
+            foreach ($prefixes as $pref) {
+                if (str_starts_with($telephone, $pref)) return $pref;
+            }
+            return null;
+        };
+
+        $senderPrefix = $getPrefix($expediteur['telephone']);
+        $destPrefix   = $getPrefix($telephoneDest);
+        $isSameOperator = ($senderPrefix !== null && $destPrefix === $senderPrefix);
+
+        $fraisTransfert = $this->getFrais(3, $montant);
+        $totalDebite    = $montant + $fraisTransfert;
+
+        if ($this->getSolde($clientIdSource) < $totalDebite) {
+            throw new \InvalidArgumentException(
+                "Solde insuffisant pour ce transfert (Débit total : {$totalDebite} Ar, dont {$fraisTransfert} Ar de frais)."
+            );
+        }
+
+        // Frais automatiques selon l'opérateur
+        if ($isSameOperator) {
+            // Même opérateur : frais de retrait inclus automatiquement dans le montant envoyé
+            $fraisRetrait  = $this->getFrais(2, $montant);
+            $montantStored = $montant + $fraisRetrait;
+            $fraisStored   = 0.0;
+        } else {
+            // Autre opérateur : pas de frais de retrait
+            $montantStored = $montant;
+            $fraisStored   = $fraisTransfert;
         }
 
         $this->db->transBegin();
@@ -188,8 +216,8 @@ class ClientModel extends Model
                 'id_client_destination' => null,
                 'id_type_operation'     => 3, // Transfert
                 'id_statut'             => 2, // SUCCES
-                'montant'               => $montant,
-                'frais_appliques'       => $frais,
+                'montant'               => $montantStored,
+                'frais_appliques'       => $fraisStored,
             ]);
 
             // Enregistrement dans l'historique des transferts étrangers
@@ -198,7 +226,7 @@ class ClientModel extends Model
                 'id_client_source'    => $clientIdSource,
                 'id_operateur'        => $autreOperateur['id'],
                 'numero_destinataire' => $telephoneDest,
-                'montant'             => $montant,
+                'montant'             => $montantStored,
             ]);
 
         }
@@ -212,23 +240,151 @@ class ClientModel extends Model
                 throw new \InvalidArgumentException("Vous ne pouvez pas effectuer un transfert vers vous-même.");
             }
     
-            $frais = $this->getFrais(3, $montant);
-            $totalAboed = $montant + $frais;
-    
-            if ($this->getSolde($clientIdSource) < $totalAboed) {
-                throw new \InvalidArgumentException("Solde insuffisant pour ce transfert (Frais applicables : {$frais} Ar).");
-            }
-    
-            $this->db->transBegin();
-    
             $this->db->table('transactions')->insert([
-                'reference'             => $this->generateReference(),
+                'reference'             => $reference,
                 'id_client_source'      => $clientIdSource,
                 'id_client_destination' => $destinataire['id'],
                 'id_type_operation'     => 3, // Transfert
                 'id_statut'             => 2, // SUCCES
-                'montant'               => $montant,
-                'frais_appliques'       => $frais,
+                'montant'               => $montantStored,
+                'frais_appliques'       => $fraisStored,
+            ]);
+        }
+
+        if ($this->db->transStatus() === false) {
+            $this->db->transRollback();
+            return false;
+        }
+
+        $this->db->transCommit();
+        return true;
+    }
+
+   
+    public function transfertMultiple(int $clientIdSource, array $telephonesDest, float $montantTotal): bool
+    {
+        if ($montantTotal <= 0) {
+            throw new \InvalidArgumentException("Le montant total du transfert doit être supérieur à 0.");
+        }
+
+        $telephonesDestClean = [];
+        foreach ($telephonesDest as $tel) {
+            $cleaned = trim((string)$tel);
+            if ($cleaned !== '') {
+                $telephonesDestClean[] = $cleaned;
+            }
+        }
+        $telephonesDestClean = array_unique($telephonesDestClean);
+
+        $nbDestinataires = count($telephonesDestClean);
+        if ($nbDestinataires === 0) {
+            throw new \InvalidArgumentException("Veuillez saisir au moins un numéro de destinataire.");
+        }
+
+        // Valider l'expéditeur
+        $expediteur = $this->find($clientIdSource);
+        if (!$expediteur) {
+            throw new \InvalidArgumentException("Compte expéditeur introuvable.");
+        }
+
+        // Récupérer la liste des préfixes
+        $prefixeModel = new \App\Models\Operateur\PrefixeModel();
+        $prefixes = array_column($prefixeModel->findAll(), 'prefixe');
+
+        $getPrefix = function(string $telephone) use ($prefixes) {
+            foreach ($prefixes as $pref) {
+                if (str_starts_with($telephone, $pref)) {
+                    return $pref;
+                }
+            }
+            return null;
+        };
+
+        $senderPrefix = $getPrefix($expediteur['telephone']);
+
+        // Règle : Même opérateur uniquement en transfert multiple
+        if ($nbDestinataires > 1) {
+            foreach ($telephonesDestClean as $tel) {
+                $destPrefix = $getPrefix($tel);
+                if ($destPrefix !== $senderPrefix) {
+                    throw new \InvalidArgumentException(
+                        "Le transfert multiple est réservé exclusivement aux numéros du même opérateur (" . ($senderPrefix ?: "inconnu") . ")."
+                    );
+                }
+            }
+        }
+
+        // Division du montant
+        $montantIndiv = $montantTotal / $nbDestinataires;
+
+        if ($montantIndiv < 100) {
+            throw new \InvalidArgumentException(
+                "Le montant divisé par destinataire (" . number_format($montantIndiv, 2) . " Ar) est inférieur au montant minimum de transfert autorisé (100 Ar)."
+            );
+        }
+
+        // Récupérer et valider chaque destinataire
+        $destinataires = [];
+        foreach ($telephonesDestClean as $tel) {
+            $dest = $this->where('telephone', $tel)->first();
+            if (!$dest) {
+                throw new \InvalidArgumentException("Numéro de destinataire introuvable : {$tel}.");
+            }
+            if ((int)$dest['id'] === $clientIdSource) {
+                throw new \InvalidArgumentException("Vous ne pouvez pas effectuer un transfert vers vous-même ({$tel}).");
+            }
+            $destinataires[] = $dest;
+        }
+
+        // Calculer le débit total et préparer les données d'insertion
+        $transactionsData = [];
+        $debitTotal = 0.0;
+
+        foreach ($destinataires as $dest) {
+            $destPrefix     = $getPrefix($dest['telephone']);
+            $isSameOperator = ($destPrefix === $senderPrefix);
+            $fraisTransfert = $this->getFrais(3, $montantIndiv);
+
+            if ($isSameOperator) {
+                // Même opérateur : frais de retrait inclus automatiquement
+                $fraisRetrait  = $this->getFrais(2, $montantIndiv);
+                $montantStored = $montantIndiv + $fraisRetrait;
+                $fraisStored   = 0.0;
+                $debitTotal   += ($montantIndiv + $fraisRetrait);
+            } else {
+                // Autre opérateur : pas de frais de retrait
+                $montantStored = $montantIndiv;
+                $fraisStored   = $fraisTransfert;
+                $debitTotal   += ($montantIndiv + $fraisTransfert);
+            }
+
+            $transactionsData[] = [
+                'id_client_destination' => $dest['id'],
+                'montant'               => $montantStored,
+                'frais_appliques'       => $fraisStored,
+            ];
+        }
+
+        // Vérifier le solde
+        $soldeActuel = $this->getSolde($clientIdSource);
+        if ($soldeActuel < $debitTotal) {
+            throw new \InvalidArgumentException(
+                "Solde insuffisant pour ce transfert (Débit total requis : " . number_format($debitTotal, 2) . " Ar. Votre solde actuel est de " . number_format($soldeActuel, 2) . " Ar)."
+            );
+        }
+
+        // Début de la transaction base de données
+        $this->db->transBegin();
+
+        foreach ($transactionsData as $data) {
+            $this->db->table('transactions')->insert([
+                'reference'             => $this->generateReference(),
+                'id_client_source'      => $clientIdSource,
+                'id_client_destination' => $data['id_client_destination'],
+                'id_type_operation'     => 3, // Transfert
+                'id_statut'             => 2, // SUCCES
+                'montant'               => $data['montant'],
+                'frais_appliques'       => $data['frais_appliques'],
             ]);
         }
 
@@ -350,10 +506,14 @@ class ClientModel extends Model
      */
     public function getHistoriqueData(int $clientId, string $telephone): array
     {
+        $prefixeModel = new \App\Models\Operateur\PrefixeModel();
+        $prefixes = array_column($prefixeModel->findAll(), 'prefixe');
+
         return [
             'solde'        => $this->getSolde($clientId),
             'telephone'    => $telephone,
             'transactions' => $this->getTransactions($clientId),
+            'prefixes'     => $prefixes,
         ];
     }
     public function getClientsWithBalances()
