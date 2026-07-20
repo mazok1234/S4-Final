@@ -7,12 +7,13 @@ use App\Controllers\ClientController;
  * @var RouteCollection $routes
  */
 
-// $routes->view('login', 'Home::index');
+// Redirection de la page d'accueil vers /login
+$routes->addRedirect('/', 'login');
 
 $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
-    
+
     $routes->get('dashboard', 'OperateurController::dashboard');
-  
+
     $routes->group('prefixes', static function ($routes) {
         $routes->get('/', 'OperateurController::index');
         $routes->post('store', 'OperateurController::store');
@@ -21,7 +22,6 @@ $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static 
         $routes->get('delete/(:num)', 'OperateurController::delete/$1');
     });
 
-   
     $routes->get('gestion_baremes', 'BaremeController::index');
     $routes->post('gestion_baremes/store', 'BaremeController::store');
     $routes->get('gestion_baremes/edit/(:num)', 'BaremeController::edit/$1');
@@ -35,6 +35,7 @@ $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static 
     $routes->get('types_operation/delete/(:num)', 'TypeOperationController::delete/$1');
 });
 $routes->post('/auth/login', [AuthController::class, 'login']);
+$routes->get('/auth/logout', [AuthController::class, 'logout']);
 $routes->get('/client/test', [AuthController::class, 'dashboard']);
 $routes->view('login', 'front_office/login');
 

@@ -6,11 +6,19 @@
 </head>
 <body>
 
-    <div style="margin-bottom: 20px; font-family: sans-serif;">
-        <a href="<?= site_url('operator/dashboard') ?>"><strong>Tableau de Bord / Gains</strong></a> | 
-        <a href="<?= site_url('operator/prefixes') ?>">Gestion des Prefixes</a> | 
-        <a href="<?= site_url('operator/gestion_baremes') ?>">Gestion des Baremes</a> | 
-        <a href="<?= site_url('operator/types_operation') ?>">Gestion des Types d'Operation</a>
+    <div style="margin-bottom: 20px; font-family: sans-serif; display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <a href="<?= site_url('operator/dashboard') ?>"><strong>Tableau de Bord / Gains</strong></a> | 
+            <a href="<?= site_url('operator/prefixes') ?>">Gestion des Prefixes</a> | 
+            <a href="<?= site_url('operator/gestion_baremes') ?>">Gestion des Baremes</a> | 
+            <a href="<?= site_url('operator/types_operation') ?>">Gestion des Types d'Operation</a>
+        </div>
+        <?php if (session()->get('isOperator')): ?>
+        <a href="<?= site_url('auth/logout') ?>" 
+           style="background-color:#dc2626; color:#fff; padding:0.45rem 1rem; border-radius:6px; text-decoration:none; font-weight:600; font-size:0.9rem;">
+            ⏻ Déconnecter
+        </a>
+        <?php endif; ?>
     </div>
 
     <hr>

