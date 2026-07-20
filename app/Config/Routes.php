@@ -11,6 +11,7 @@ use App\Controllers\ClientController;
 
 $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
     
+    $routes->get('dashboard', 'OperateurController::dashboard');
   
     $routes->group('prefixes', static function ($routes) {
         $routes->get('/', 'OperateurController::index');
