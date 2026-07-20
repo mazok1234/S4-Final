@@ -69,17 +69,31 @@ class OperateurController extends BaseController
     public function dashboard()
     {
         $db = \Config\Database::connect();
-
-        $data['baremes'] = $db->table('baremes_frais')
-                              ->select('baremes_frais.*, types_operation.nom as type_nom')
-                              ->join('types_operation', 'types_operation.id = baremes_frais.id_type_operation')
-                              ->get()
-                              ->getResultArray();
-
-        $data['clients'] = $db->table('clients')->get()->getResultArray();
-
-        $gains = $db->table('transactions')->selectSum('frais_appliques')->get()->getRowArray();
+        $data['gains_par_type'] = $db->table('types_operation')
+                                    ->select('types_operation.id, types_operation.nom as type_nom, COALESCE(SUM(transactions.frais_appliques), 0.0) as total_frais')
+                                    ->join('transactions', 'transactions.id_type_operation = types_operation.id AND transactions.id_statut = 2', 'left')
+                                    ->groupBy('types_operation.id')
+                                    ->get()
+                                    ->getResultArray();
+        $gains = $db->table('transactions')
+                    ->selectSum('frais_appliques')
+                    ->where('id_statut', 2)
+                    ->get()
+                    ->getRowArray();
         $data['total_gains'] = $gains['frais_appliques'] ?? 0.0;
+
+        $clientModel = new \App\Models\ClientModel();
+        $data['clients'] = $clientModel->getClientsWithBalances();
+
+        $data['transactions'] = $db->table('transactions')
+                                   ->select('transactions.*, t_op.nom as type_nom, c_src.telephone as source_tel, c_dst.telephone as dest_tel, s_txn.code as statut_code')
+                                   ->join('types_operation t_op', 't_op.id = transactions.id_type_operation')
+                                   ->join('clients c_src', 'c_src.id = transactions.id_client_source')
+                                   ->join('clients c_dst', 'c_dst.id = transactions.id_client_destination', 'left')
+                                   ->join('statut_transaction s_txn', 's_txn.id = transactions.id_statut')
+                                   ->orderBy('transactions.date_transaction', 'DESC')
+                                   ->get()
+                                   ->getResultArray();
 
         return view('operator/dashboard', $data);
     }
