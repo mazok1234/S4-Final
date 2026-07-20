@@ -66,7 +66,7 @@ class AuthController extends BaseController
         session()->set($sessionData);
 
         // 5. Redirection vers l'espace fonctionnel client
-        return redirect()->to('/client/test')->with('success', 'Connexion réussie !');
+        return redirect()->to('/client/historique')->with('success', 'Connexion réussie !');
         // $data = [
         //     'status'  => 'success',
         //     'message' => 'Connexion réussie',
