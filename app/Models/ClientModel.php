@@ -97,6 +97,12 @@ class ClientModel extends Model
             throw new \InvalidArgumentException("Le montant du dépôt doit être supérieur à 0.");
         }
 
+        // Vérifier que le client existe en base
+        $client = $this->find($clientId);
+        if (!$client) {
+            throw new \InvalidArgumentException("Client introuvable. Veuillez vous reconnecter.");
+        }
+
         $this->db->transBegin();
 
         $this->db->table('transactions')->insert([
@@ -125,6 +131,12 @@ class ClientModel extends Model
     {
         if ($montant <= 0) {
             throw new \InvalidArgumentException("Le montant du retrait doit être supérieur à 0.");
+        }
+
+        // Vérifier que le client existe en base
+        $client = $this->find($clientId);
+        if (!$client) {
+            throw new \InvalidArgumentException("Client introuvable. Veuillez vous reconnecter.");
         }
 
         $frais = $this->getFrais(2, $montant);
