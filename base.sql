@@ -19,25 +19,59 @@ CREATE TABLE baremes_frais (
 
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    telephone TEXT NOT NULL UNIQUE,
-    solde REAL DEFAULT 0.0
+    telephone TEXT NOT NULL UNIQUE
+);
+CREATE TABLE statut(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    libelle TEXT NOT NULL
+);
+CREATE TABLE statut_client(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_statut INTEGER NOT NULL,
+    id_client INTEGER NOT NULL,
+    date_modification DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(id_statut) REFERENCES statut(id),
+    FOREIGN KEY(id_client) REFERENCES clients(id)
+);
+
+CREATE TABLE statut_transaction (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL UNIQUE 
 );
 
 CREATE TABLE transactions (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference TEXT NOT NULL UNIQUE, -- Ex: TXN-20260720-A1B2C3
     id_client_source INTEGER NOT NULL,
     id_client_destination INTEGER,
     id_type_operation INTEGER NOT NULL,
-    montant REAL NOT NULL,
-    frais_appliques REAL DEFAULT 0.0,
+    id_statut INTEGER NOT NULL DEFAULT 1, -- Clé vers statut_transaction
+    montant REAL NOT NULL CHECK (montant > 0),
+    frais_appliques REAL DEFAULT 0.0 CHECK (frais_appliques >= 0),
     date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
     FOREIGN KEY(id_client_source) REFERENCES clients(id),
     FOREIGN KEY(id_client_destination) REFERENCES clients(id),
-    FOREIGN KEY(id_type_operation) REFERENCES types_operation(id)
+    FOREIGN KEY(id_type_operation) REFERENCES types_operation(id),
+    FOREIGN KEY(id_statut) REFERENCES statut_transaction(id),
+    
+    -- Empêche d'envoyer de l'argent à soi-même
+    CHECK (id_client_source <> id_client_destination)
 );
-
 INSERT INTO prefixes (prefixe) VALUES ('033'), ('037');
 INSERT INTO types_operation (nom) VALUES ('depot'), ('retrait'), ('transfert');
+INSERT INTO statut (libelle) VALUES 
+('ACTIF'),
+('INACTIF'),
+('SUSPENDU'),
+('BLOQUE');
+
+-- 2. Statuts de transaction
+INSERT INTO statut_transaction (code) VALUES 
+('EN_COURS'),
+('SUCCES'),
+('ECHEC'),
+('ANNULEE');
 
 INSERT INTO baremes_frais (id_type_operation, montant_min, montant_max, frais) VALUES 
 (2, 100, 1000, 50),
