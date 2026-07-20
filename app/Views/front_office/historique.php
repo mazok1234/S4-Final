@@ -105,8 +105,16 @@
             <h2>Compte Client : <?= esc($telephone) ?></h2>
             <p style="color: #64748b;">Gérez vos opérations en toute sécurité</p>
         </div>
-        <div class="solde-badge">
-            <?= number_format($solde, 2, ',', ' ') ?> Ar
+        <div style="display:flex; align-items:center; gap:1rem;">
+            <div class="solde-badge">
+                <?= number_format($solde, 2, ',', ' ') ?> Ar
+            </div>
+            <?php if (session()->get('isLoggedIn')): ?>
+            <a href="<?= site_url('auth/logout') ?>" 
+               style="background-color:#dc2626; color:#fff; padding:0.45rem 1rem; border-radius:6px; text-decoration:none; font-weight:600; font-size:0.9rem; white-space:nowrap;">
+                &#x23FB; Déconnecter
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 

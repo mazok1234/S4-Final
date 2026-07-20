@@ -115,6 +115,31 @@
         .btn-submit:hover {
             background-color: var(--primary-hover);
         }
+
+        .btn-admin {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.75rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-admin:hover {
+            background-color: #f9fafb;
+        }
+
+        .admin-hint {
+            font-size: 0.8rem;
+            color: #9ca3af;
+            text-align: center;
+            margin-top: 0.4rem;
+        }
     </style>
 </head>
 <body>
@@ -152,6 +177,12 @@
             </div>
 
             <button type="submit" class="btn-submit">Valider</button>
+
+            <!-- Accès opérateur -->
+            <button type="button" class="btn-admin" onclick="document.getElementById('telephone').value='Admin'; this.form.submit();">
+                &#9654; Accéder Admin
+            </button>
+            <p class="admin-hint"><strong></strong></p>
         </form>
     </div>
 
