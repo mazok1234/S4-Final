@@ -1,8 +1,8 @@
 v1 : 
     .ETU004173 : 
-        -Initialisation Github - 1mn (ok)
-        -Initialisation Code-Igniter Squelette - 1mn (ok)
-        -Conception base de donnee 15mn (ok):
+        -Initialisation Github - (ok)
+        -Initialisation Code-Igniter Squelette - (ok)
+        -Conception base de donnee  (ok):
             -- Tables :
                1. prefixes : gestion des prefixes telephoniques
                2. types_operation : types d'operations (depôt, retrait, transfert)
@@ -12,23 +12,27 @@ v1 :
                6. clients : informations des clients et solde
                7. transactions : historique des operations effectuees
         -Cote operateur : 
-            --Modele 15mn : (ok)
+            --Modele  : (ok)
                 1. \Operateur\Model\PrefixeModel.php 
                 2. \Operateur\Model\BaremeFraisModel.php
                 3. \Operateur\Model\TypeOperationModel.php
-                4. \Operateur\Model\TrasnactionModel.php
+                4. \Operateur\Model\TransactionModel.php
+                5.Inclure option frais de retrait lors envoi dans et transfert multiple ClientModel.php
 
-            --Controller 35mn: (ok)
+            --Controller : (ok)
                 1.Creation du controller \Operateur\Controller\PrefixeController.php(Crud-prefixe)
                 2.Creation du controller \Operateur\Controller\TypeOperationController.php(Crud-type)
                 3.Creation du controller \Operateur\Controller\BaremeController.php(Crud-bareme par tranche modifiable et on prend les gains adaptation avec ClientModel.php)
+                
 
-            --View 30mn: (ok)
+
+
+            --View : (ok)
                 1. Liste des prefixes dans Views\operator\prefixes.php
                 2. Bouton ajouter/modifier/supprimer Prefixes + formulaire
                 3. Liste et creation des types d'operations +bouton ajouter ,supprimer, modifier avec formulaire  dans Views\operator\types_operations.php et dans Views\operator\edit_types_operations.php
                 4. Liste des tranches avec frais + bouton modifier et supprimer + formulaire de modif dans Views\operator\gestion_baremes.php
-                
+                5. Ajouter une nouvelle fonctionnalite selon la regle du sujet dans ClientModel.php et ajout bouton +Ajout un nouveau destinataire 
 
 
 
