@@ -59,6 +59,36 @@ CREATE TABLE transactions (
     -- Empêche d'envoyer de l'argent à soi-même
     CHECK (id_client_source <> id_client_destination)
 );
+
+-- Table des préfixes des autres opérateurs
+CREATE TABLE prefixe_autre (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom_operateur VARCHAR(50) NOT NULL,
+    prefixe VARCHAR(10) NOT NULL UNIQUE
+);
+
+-- Table du taux de commission par opérateur
+CREATE TABLE commission (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_operateur INTEGER NOT NULL,
+    pourcentage REAL NOT NULL CHECK (pourcentage >= 0),
+    date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id)
+);
+
+-- Table d'historique des transferts vers d'autres opérateurs
+CREATE TABLE historique_transfert_etranger (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    reference TEXT NOT NULL UNIQUE,
+    id_client_source INTEGER NOT NULL,
+    id_operateur INTEGER NOT NULL,
+    numero_destinataire TEXT NOT NULL,
+    montant REAL NOT NULL CHECK (montant > 0),
+    date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_client_source) REFERENCES clients(id),
+    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id)
+);
+
 INSERT INTO prefixes (prefixe) VALUES ('033'), ('037');
 INSERT INTO types_operation (nom) VALUES ('depot'), ('retrait'), ('transfert');
 INSERT INTO statut (libelle) VALUES 

@@ -163,15 +163,11 @@ class ClientModel extends Model
         if ($montant <= 0) {
             throw new \InvalidArgumentException("Le montant du transfert doit être supérieur à 0.");
         }
+        $telephoneDest = trim($telephoneDest);
 
-        $destinataire = $this->where('telephone', trim($telephoneDest))->first();
-        if (!$destinataire) {
-            throw new \InvalidArgumentException("Numéro du destinataire introuvable.");
-        }
-
-        if ((int)$destinataire['id'] === $clientIdSource) {
-            throw new \InvalidArgumentException("Vous ne pouvez pas effectuer un transfert vers vous-même.");
-        }
+        // 1. Vérification s'il s'agit d'un autre opérateur
+        $prefixeAutreModel = new \App\Models\Operateur\PrefixeAutreModel();
+        $autreOperateur    = $prefixeAutreModel->getOperateurParNumero($telephoneDest);
 
         $frais = $this->getFrais(3, $montant);
         $totalAboed = $montant + $frais;
@@ -182,15 +178,59 @@ class ClientModel extends Model
 
         $this->db->transBegin();
 
-        $this->db->table('transactions')->insert([
-            'reference'             => $this->generateReference(),
-            'id_client_source'      => $clientIdSource,
-            'id_client_destination' => $destinataire['id'],
-            'id_type_operation'     => 3, // Transfert
-            'id_statut'             => 2, // SUCCES
-            'montant'               => $montant,
-            'frais_appliques'       => $frais,
-        ]);
+        $reference = $this->generateReference();
+
+        if ($autreOperateur) {
+            // Transfert vers AUTRE OPÉRATEUR : destinataire = NULL dans transactions
+            $this->db->table('transactions')->insert([
+                'reference'             => $reference,
+                'id_client_source'      => $clientIdSource,
+                'id_client_destination' => null,
+                'id_type_operation'     => 3, // Transfert
+                'id_statut'             => 2, // SUCCES
+                'montant'               => $montant,
+                'frais_appliques'       => $frais,
+            ]);
+
+            // Enregistrement dans l'historique des transferts étrangers
+            $this->db->table('historique_transfert_etranger')->insert([
+                'reference'           => $reference,
+                'id_client_source'    => $clientIdSource,
+                'id_operateur'        => $autreOperateur['id'],
+                'numero_destinataire' => $telephoneDest,
+                'montant'             => $montant,
+            ]);
+
+        }
+        else{
+            $destinataire = $this->where('telephone', trim($telephoneDest))->first();
+            if (!$destinataire) {
+                throw new \InvalidArgumentException("Numéro du destinataire introuvable.");
+            }
+    
+            if ((int)$destinataire['id'] === $clientIdSource) {
+                throw new \InvalidArgumentException("Vous ne pouvez pas effectuer un transfert vers vous-même.");
+            }
+    
+            $frais = $this->getFrais(3, $montant);
+            $totalAboed = $montant + $frais;
+    
+            if ($this->getSolde($clientIdSource) < $totalAboed) {
+                throw new \InvalidArgumentException("Solde insuffisant pour ce transfert (Frais applicables : {$frais} Ar).");
+            }
+    
+            $this->db->transBegin();
+    
+            $this->db->table('transactions')->insert([
+                'reference'             => $this->generateReference(),
+                'id_client_source'      => $clientIdSource,
+                'id_client_destination' => $destinataire['id'],
+                'id_type_operation'     => 3, // Transfert
+                'id_statut'             => 2, // SUCCES
+                'montant'               => $montant,
+                'frais_appliques'       => $frais,
+            ]);
+        }
 
         if ($this->db->transStatus() === false) {
             $this->db->transRollback();

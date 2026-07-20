@@ -35,8 +35,6 @@
         <p style="color: red; font-weight: bold;"><?= session()->getFlashdata('error') ?></p>
     <?php endif; ?>
 
-
-
     <!-- Section 1 : Situation des Gains -->
     <div style="font-family: sans-serif;">
         <h3>1. Situation des Gains via les Frais</h3>
@@ -113,6 +111,43 @@
     <br>
     <hr>
 
-    
+    <!-- NOUVEAU : Section 3 : Montants à payer aux autres opérateurs -->
+    <div style="font-family: sans-serif; margin-top: 20px;">
+        <h3>3. Montants a Payer aux Autres Operateurs</h3>
+        <table border="1" cellpadding="8" cellspacing="0" style="width: 80%; text-align: left;">
+            <thead>
+                <tr style="background-color: #f3f4f6;">
+                    <th>Operateur</th>
+                    <th>Prefixe</th>
+                    <th>Total Brut Transféré</th>
+                    <th>Commission (%)</th>
+                    <th>Montant Net a Envoyer</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($montants_operateurs)): ?>
+                    <?php foreach ($montants_operateurs as $op): ?>
+                        <tr>
+                            <td><strong><?= esc($op['nom_operateur']) ?></strong></td>
+                            <td><?= esc($op['prefixe']) ?></td>
+                            <td><?= number_format($op['total_brut'], 2, ',', ' ') ?> Ar</td>
+                            <td><?= number_format($op['pourcentage_commission'], 2, ',', ' ') ?> %</td>
+                            <td style="color: #15803d; font-weight: bold;">
+                                <?= number_format($op['montant_a_envoyer'], 2, ',', ' ') ?> Ar
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="5" align="center">Aucun autre opérateur configuré ou aucun transfert effectué.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <br>
+    <hr>
+
 </body>
 </html>
