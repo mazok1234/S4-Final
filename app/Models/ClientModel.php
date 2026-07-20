@@ -316,4 +316,25 @@ class ClientModel extends Model
             'transactions' => $this->getTransactions($clientId),
         ];
     }
+    public function getClientsWithBalances()
+    {
+        $db = \Config\Database::connect();
+        
+        $sql = "SELECT c.id, c.telephone,
+                COALESCE((
+                    SELECT s.libelle 
+                    FROM statut_client sc 
+                    JOIN statut s ON s.id = sc.id_statut 
+                    WHERE sc.id_client = c.id 
+                    ORDER BY sc.date_modification DESC, sc.id DESC 
+                    LIMIT 1
+                ), 'ACTIF') AS statut_libelle,
+                COALESCE((SELECT SUM(t.montant - t.frais_appliques) FROM transactions t WHERE t.id_client_source = c.id AND t.id_type_operation = 1 AND t.id_statut = 2), 0) +
+                COALESCE((SELECT SUM(t.montant) FROM transactions t WHERE t.id_client_destination = c.id AND t.id_type_operation = 3 AND t.id_statut = 2), 0) -
+                COALESCE((SELECT SUM(t.montant + t.frais_appliques) FROM transactions t WHERE t.id_client_source = c.id AND t.id_type_operation = 2 AND t.id_statut = 2), 0) -
+                COALESCE((SELECT SUM(t.montant + t.frais_appliques) FROM transactions t WHERE t.id_client_source = c.id AND t.id_type_operation = 3 AND t.id_statut = 2), 0) AS solde
+                FROM clients c";
+                
+        return $db->query($sql)->getResultArray();
+    }
 }
