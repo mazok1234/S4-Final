@@ -4,9 +4,9 @@ namespace App\Models\Operateur;
 
 use CodeIgniter\Model;
 
-class CommissionModel extends Model
+class ComissionModel extends Model
 {
-    protected $table            = 'commission';
+    protected $table            = 'comission';
     protected $primaryKey       = 'id';
     protected $allowedFields    = ['id_operateur', 'pourcentage', 'date'];
     protected $useTimestamps    = false;

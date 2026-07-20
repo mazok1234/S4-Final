@@ -17,11 +17,11 @@ class HistoriqueTransfertEtrangerModel extends Model
   public function getMontantsAPayerParOperateur(): array
     {
         // Sous-requête pour récupérer la dernière commission par opérateur
-        $subQueryCommission = $this->db->table('commission c1')
+        $subQueryCommission = $this->db->table('comission c1')
             ->select('c1.id_operateur, c1.pourcentage')
             ->where('c1.id = (
                 SELECT c2.id 
-                FROM commission c2 
+                FROM comission c2 
                 WHERE c2.id_operateur = c1.id_operateur 
                 ORDER BY c2.date DESC, c2.id DESC 
                 LIMIT 1

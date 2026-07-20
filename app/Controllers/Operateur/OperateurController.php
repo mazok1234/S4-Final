@@ -126,38 +126,53 @@ class OperateurController extends BaseController
      */
     public function store_autre()
     {
-        $prefixe      = trim((string)$this->request->getPost('prefixe'));
-        $nomOperateur = trim((string)$this->request->getPost('nom_operateur'));
-        $pourcentage  = (float)$this->request->getPost('pourcentage');
+      $prefixe      = trim((string)$this->request->getPost('prefixe'));
+$nomOperateur = trim((string)$this->request->getPost('nom_operateur'));
+$pourcentageVal = $this->request->getPost('pourcentage');
 
-        if (empty($prefixe) || empty($nomOperateur)) {
-            return redirect()->back()->with('error', 'Le préfixe et le nom de l\'opérateur sont obligatoires.');
-        }
+if (empty($prefixe) || empty($nomOperateur)) {
+    return redirect()->back()->with('error', 'Le préfixe et le nom de l\'opérateur sont obligatoires.');
+}
 
-        $prefixeAutreModel = new PrefixeAutreModel();
+$prefixeAutreModel = new PrefixeAutreModel();
 
-        // 1. Vérification doublon sur le préfixe externe
-        $existant = $prefixeAutreModel->where('prefixe', $prefixe)->first();
-        if ($existant) {
-            return redirect()->back()->with('error', "Le préfixe {$prefixe} est déjà attribué à l'opérateur \"{$existant['nom_operateur']}\".");
-        }
+// 1. Vérification doublon sur le préfixe externe
+$existant = $prefixeAutreModel->where('prefixe', $prefixe)->first();
+if ($existant) {
+    return redirect()->back()->with('error', "Le préfixe {$prefixe} est déjà attribué à l'opérateur \"{$existant['nom_operateur']}\".");
+}
 
-        // 2. Insertion de l'opérateur
-        $idOperateur = $prefixeAutreModel->insert([
-            'nom_operateur' => $nomOperateur,
-            'prefixe'       => $prefixe,
-        ]);
+// Utilisation d'une transaction pour être sûr que tout s'insère proprement
+$db = \Config\Database::connect();
+$db->transStart();
 
-        // 3. Insertion de la commission initiale s'il y en a une
-        if ($idOperateur) {
-            $commissionModel = new CommissionModel();
-            $commissionModel->insert([
-                'id_operateur' => $idOperateur,
-                'pourcentage'  => $pourcentage,
-            ]);
-        }
+// 2. Insertion de l'opérateur
+$dataOperateur = [
+    'nom_operateur' => $nomOperateur,
+    'prefixe'       => $prefixe,
+];
 
-        return redirect()->back()->with('success', "L'opérateur {$nomOperateur} ({$prefixe}) a été ajouté avec succès.");
+// $prefixeAutreModel->insert() retourne le dernier ID inséré (insertID)
+$idOperateur = $prefixeAutreModel->insert($dataOperateur, true);
+
+// 3. Insertion de la commission
+if ($idOperateur) {
+    $pourcentage = is_numeric($pourcentageVal) ? (float)$pourcentageVal : 0.0;
+
+    $commissionModel = new ComissionModel();
+    $commissionModel->insert([
+        'id_operateur' => $idOperateur,
+        'pourcentage'  => $pourcentage,
+    ]);
+}
+
+$db->transComplete();
+
+if ($db->transStatus() === false) {
+    return redirect()->back()->with('error', 'Erreur lors de la création de l\'opérateur et de sa commission.');
+}
+
+return redirect()->back()->with('success', "L'opérateur {$nomOperateur} ({$prefixe}) a été ajouté avec succès avec une commission de {$pourcentage}%.");
     }
     /**
      * NOUVEAU : Suppression d'un autre opérateur

@@ -68,12 +68,12 @@ CREATE TABLE prefixe_autre (
 );
 
 -- Table du taux de commission par opérateur
-CREATE TABLE commission (
+CREATE TABLE comission (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     id_operateur INTEGER NOT NULL,
     pourcentage REAL NOT NULL CHECK (pourcentage >= 0),
     date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id)
+    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id) ON DELETE CASCADE
 );
 
 -- Table d'historique des transferts vers d'autres opérateurs
@@ -86,7 +86,7 @@ CREATE TABLE historique_transfert_etranger (
     montant REAL NOT NULL CHECK (montant > 0),
     date_transaction DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_client_source) REFERENCES clients(id),
-    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id)
+    FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id) ON DELETE CASCADE
 );
 
 INSERT INTO prefixes (prefixe) VALUES ('033'), ('037');
