@@ -44,7 +44,14 @@ class AuthController extends BaseController
 
         // 3. Récupération ou création automatique du client via le modèle
         // try {
-            $client = $this->clientModel->getOrCreateByTelephone($telephone);
+           try {
+        $client = $this->clientModel->getOrCreateByTelephone($telephone);
+    } catch (\InvalidArgumentException $e) {
+        // Renvoie l'erreur de préfixe invalide au formulaire
+        return redirect()->back()->with('error', $e->getMessage());
+    } catch (\Exception $e) {
+        return redirect()->back()->with('error', 'Une erreur est survenue lors du traitement.');
+    }
         // } catch (\Exception $e) {
         //     return redirect()->back()->with('error', 'Une erreur est survenue lors du traitement.');
         // }
