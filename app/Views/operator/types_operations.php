@@ -6,6 +6,16 @@
 </head>
 <body>
 
+    <!-- Barre de Navigation Commune -->
+    <div style="margin-bottom: 20px; font-family: sans-serif;">
+        <a href="<?= site_url('operator/dashboard') ?>">Tableau de Bord / Gains</a> | 
+        <a href="<?= site_url('operator/prefixes') ?>">Gestion des Prefixes</a> | 
+        <a href="<?= site_url('operator/gestion_baremes') ?>">Gestion des Baremes</a> | 
+        <a href="<?= site_url('operator/types_operation') ?>"><strong>Gestion des Types d'Operation</strong></a>
+    </div>
+
+    <hr>
+
     <div>
         <h2>Gestion des types d operation</h2>
         <a href="<?= site_url('operator/gestion_baremes') ?>">Retour aux baremes</a>
