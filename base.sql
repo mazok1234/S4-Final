@@ -19,8 +19,7 @@ CREATE TABLE baremes_frais (
 
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    telephone TEXT NOT NULL UNIQUE,
-    solde REAL DEFAULT 0.0
+    telephone TEXT NOT NULL UNIQUE
 );
 
 CREATE TABLE transactions (
