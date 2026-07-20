@@ -1,0 +1,11 @@
+
+writable/logs/*
+!writable/logs/index.html
+writable/debugbar/*
+!writable/debugbar/index.html
+writable/session/*
+!writable/session/index.html
+writable/db/*
+!writable/db/index.html
+writable/cache/*
+!writable/cache/index.html
