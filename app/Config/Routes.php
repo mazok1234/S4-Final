@@ -7,7 +7,7 @@ use App\Controllers\AuthController;
  * @var RouteCollection $routes
  */
 
-$routes->view('login', 'Home::index');
+// $routes->view('login', 'Home::index');
 
 $routes->group('operator', ['namespace' => 'App\Controllers\operateur'], static function ($routes) {
     
