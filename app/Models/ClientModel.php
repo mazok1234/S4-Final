@@ -194,8 +194,10 @@ class ClientModel extends Model
         $senderPrefix = $getPrefix($expediteur['telephone']);
         $destPrefix   = $getPrefix($telephoneDest);
         $isSameOperator = ($senderPrefix !== null && $destPrefix === $senderPrefix);
-
         $fraisTransfert = $this->getFrais(3, $montant);
+        $promotionModel =  new PromotionModel();
+        $promotion =  $promotionModel->getDernierePromotion();
+        $fraisTransfert = $fraisTransfert - (float)($fraisTransfert * ($promotion/100));
         $totalDebite    = $montant + $fraisTransfert;
 
         if ($this->getSolde($clientIdSource) < $totalDebite) {

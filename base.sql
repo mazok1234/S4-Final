@@ -89,6 +89,13 @@ CREATE TABLE historique_transfert_etranger (
     FOREIGN KEY (id_operateur) REFERENCES prefixe_autre(id) ON DELETE CASCADE
 );
 
+CREATE TABLE promotion_transfert(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    pourcentage REAL NOT NULL CHECK (pourcentage >= 0),
+    date DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO promotion_transfert(pourcentage) VALUES (20);
 INSERT INTO prefixes (prefixe) VALUES ('033'), ('037');
 INSERT INTO types_operation (nom) VALUES ('depot'), ('retrait'), ('transfert');
 INSERT INTO statut (libelle) VALUES 
