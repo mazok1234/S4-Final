@@ -549,4 +549,5 @@ class ClientModel extends Model
                 
         return $db->query($sql)->getResultArray();
     }
+
 }

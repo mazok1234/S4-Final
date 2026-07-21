@@ -23,6 +23,7 @@ v1 :
                 1.Creation du controller \Operateur\Controller\PrefixeController.php(Crud-prefixe)
                 2.Creation du controller \Operateur\Controller\TypeOperationController.php(Crud-type)
                 3.Creation du controller \Operateur\Controller\BaremeController.php(Crud-bareme par tranche modifiable et on prend les gains adaptation avec ClientModel.php)
+                6-Fonction dashboard : Separation des operateurs 
                 
 
 

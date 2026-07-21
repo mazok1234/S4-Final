@@ -13,7 +13,7 @@ class OperateurController extends BaseController
 {
     public function index()
     {
-      $prefixeModel      = new PrefixeModel();
+        $prefixeModel      = new PrefixeModel();
         $prefixeAutreModel = new PrefixeAutreModel();
 
         $data = [

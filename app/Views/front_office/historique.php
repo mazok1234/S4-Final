@@ -159,6 +159,14 @@
                 <button type="submit" class="btn btn-retrait">Valider le Retrait</button>
             </form>
         </div>
+        <form action="<?= base_url('') ?>" method="POST">
+            <?= csrf_field() ?>
+            <div class="form-group">
+                <label>Epargne</label>
+                <input type="number" id="valeur" name="valeur" step="0.01" min="100" placeholder="Ex : 5" required>
+            </div>
+            <button type="submit" class="btn btn-retrait">Valider l'Epargne </button>
+        </form>
 
         <!-- Formulaire de Transfert -->
         <div class="form-card">

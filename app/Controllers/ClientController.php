@@ -139,4 +139,8 @@ class ClientController extends BaseController
 
         return view('front_office/historique', $data);
     }
+    public function epargne()
+    {
+        
+    }
 }

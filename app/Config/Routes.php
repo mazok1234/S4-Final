@@ -31,6 +31,7 @@ $routes->group('operator', ['namespace' => 'App\Controllers\Operateur'], static 
     $routes->get('gestion_baremes/edit/(:num)', 'BaremeController::edit/$1');
     $routes->post('gestion_baremes/update/(:num)', 'BaremeController::update/$1');
     $routes->get('gestion_baremes/delete/(:num)', 'BaremeController::delete/$1');
+    $routes->get('epargne','EpargneController::index');
 
     $routes->get('types_operation', 'TypeOperationController::index');
     $routes->post('types_operation/store', 'TypeOperationController::store');

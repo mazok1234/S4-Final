@@ -17,10 +17,17 @@ CREATE TABLE baremes_frais (
     FOREIGN KEY(id_type_operation) REFERENCES types_operation(id)
 );
 
+
 CREATE TABLE clients (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     telephone TEXT NOT NULL UNIQUE,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE compte_epargne (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_client INTEGER,
+    valeur REAL NOT NULL CHECK (valeur > 0),
+    FOREIGN KEY(id_client) REFERENCES clients(id)    
 );
 CREATE TABLE statut(
     id INTEGER PRIMARY KEY AUTOINCREMENT,
